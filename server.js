@@ -4,6 +4,7 @@ const app = express();
 const morgan = require("morgan");
 var bodyParser = require('body-parser')
 const NodecontactRoute = require("./api/router/Contact")
+const project_router = require("./api/router/project_router")
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/node_back_db', { useNewUrlParser: true });
 //mongoose.connect('mongodb://user:pw@host1.com:27017/dbname', { useNewUrlParser: true })
@@ -29,7 +30,13 @@ app.use(morgan("dev"))
 //we want to see it in developement mode
 
 
-app.use("/api/node_contacts", NodecontactRoute)
+//app.use("/api/node_contacts", NodecontactRoute);
+app.use("/api/shorturl/new", project_router)
+
+var html_file = __dirname + "/index.html"
+app.get("/hola", function (req, res) {
+    res.sendfile(html_file)
+})
 
 
 
